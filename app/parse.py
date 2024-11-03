@@ -1,4 +1,9 @@
 from selenium import webdriver
+from selenium.common import (
+    TimeoutException,
+    NoSuchElementException,
+    ElementNotInteractableException
+)
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -50,7 +55,7 @@ def accept_cookies(driver: webdriver.Chrome) -> None:
         )
         accept_button.click()
         print("Cookies accepted")
-    except Exception as e:
+    except (TimeoutException, NoSuchElementException) as e:
         print(f"Cookies not accepted: {e}")
 
 
@@ -72,7 +77,7 @@ def load_all_products(driver: webdriver.Chrome) -> None:
             else:
                 print("'More' button is either disabled or not displayed")
                 break
-        except Exception as e:
+        except (NoSuchElementException, ElementNotInteractableException) as e:
             print("The 'More' button was not found or became unavailable:", e)
             break
 
