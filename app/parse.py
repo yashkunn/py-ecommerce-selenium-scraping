@@ -154,7 +154,7 @@ def get_all_products() -> None:
             try:
                 products = future.result()
                 save_to_csv(products, f"{category}.csv")
-            except Exception as e:
+            except (NoSuchElementException, ValueError) as e:
                 print(f"Error retrieving products for {category}: {e}")
 
 
